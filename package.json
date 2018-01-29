@@ -50,6 +50,7 @@
     "core-js": "2.4.1",
     "enhanced-resolve": "3.3.0",
     "rxjs": "5.5.2",
+    "three": "^0.89.0",
     "zone.js": "0.8.17"
   },
   "devDependencies": {
@@ -60,6 +61,7 @@
     "@types/jasmine": "2.5.54",
     "@types/jasminewd2": "2.0.2",
     "@types/node": "7.0.7",
+    "@types/three": "^0.89.2",
     "autoprefixer": "7.1.4",
     "circular-dependency-plugin": "3.0.0",
     "codelyzer": "3.2.0",
@@ -68,7 +70,7 @@
     "cross-env": "5.0.5",
     "css-loader": "0.28.7",
     "cssnano": "3.10.0",
-    "electron": "1.7.8",
+    "electron": "^1.7.8",
     "electron-builder": "19.45.4",
     "electron-reload": "1.2.1",
     "exports-loader": "0.6.4",

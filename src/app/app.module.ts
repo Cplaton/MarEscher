@@ -17,6 +17,7 @@ import { ElectronService } from './providers/electron.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { MapEditorModule } from './modules/map-editor/map-editor.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    MapEditorModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
