@@ -3,6 +3,9 @@ import * as THREE from 'three'
 import "./js/EnableThreeExamples";
 import "three/examples/js/controls/OrbitControls";
 import "three/examples/js/loaders/ColladaLoader";
+import * as MapEditor from './models/models';
+import { Color } from 'three';
+import { Point } from './models/models';
 
 @Component({
   selector: 'map-editor',
@@ -19,6 +22,7 @@ export class MapEditorComponent implements AfterViewInit {
   public fieldOfView: number = 60;
   public nearClippingPane: number = 1;
   public farClippingPane: number = 1100;
+  public cameraPosition = {x: 0, y: 100, z: 0}; //{x: 10, y: 10, z: 100};
 
   public controls: THREE.OrbitControls;
 
@@ -44,7 +48,7 @@ export class MapEditorComponent implements AfterViewInit {
   private onModelLoadingCompleted(collada) {
       var modelScene = collada.scene;
       this.scene.add(modelScene);
-      this.render();
+      //this.render();
   }
 
   private createLight() {
@@ -67,9 +71,9 @@ export class MapEditorComponent implements AfterViewInit {
       );
 
       // Set position and look at
-      this.camera.position.x = 10;
-      this.camera.position.y = 10;
-      this.camera.position.z = 100;
+      this.camera.position.x = this.cameraPosition.x;
+      this.camera.position.y = this.cameraPosition.y;
+      this.camera.position.z = this.cameraPosition.z;
   }
 
   private getAspectRatio(): number {
@@ -96,7 +100,7 @@ export class MapEditorComponent implements AfterViewInit {
       let component: MapEditorComponent = this;
 
       (function render() {
-          //requestAnimationFrame(render);
+          requestAnimationFrame(render);
           component.render();
       }());
   }
@@ -109,7 +113,7 @@ export class MapEditorComponent implements AfterViewInit {
       this.controls = new THREE.OrbitControls(this.camera);
       this.controls.rotateSpeed = 1.0;
       this.controls.zoomSpeed = 1.2;
-      this.controls.addEventListener('change', this.render);
+      //this.controls.addEventListener('change', this.render);
 
   }
 
@@ -161,7 +165,7 @@ export class MapEditorComponent implements AfterViewInit {
       this.camera.aspect = this.getAspectRatio();
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-      this.render();
+      //this.render();
   }
 
   @HostListener('document:keypress', ['$event'])
@@ -172,10 +176,33 @@ export class MapEditorComponent implements AfterViewInit {
   /* LIFECYCLE */
   ngAfterViewInit() {
       this.createScene();
+      this.createSceneSubjects();
       this.createLight();
       this.createCamera();
       this.startRendering();
       this.addControls();
+  }
+
+  private createSceneSubjects() {
+      var map = new MapEditor.Map(this.scene);
+      /*var planche = new MapEditor.Object();
+      var contour = new MapEditor.Path();
+      contour.points.push(
+        new Point(-100, 100),
+        new Point(100, 100),
+        new Point(1000, -100),
+        new Point(-100, -100)
+      );
+      var culture = new MapEditor.Layer(new Color(0, 1, 0));
+      planche.path = contour;
+      planche.layers.set('culture', culture);
+      map.objects.push(planche);
+      map.render(this.scene);
+
+      var geometry = new THREE.BoxGeometry( 1000, 1000, 1000 );
+    var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    var cube = new THREE.Mesh( geometry, material );
+    this.scene.add( cube );*/
   }
 
 }
